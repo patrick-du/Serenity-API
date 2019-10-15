@@ -93,12 +93,20 @@ router.post("/login", (req, res) => {
 // @route GET users/all
 // @desc Returns all the users in the collection
 // @access Public
-router.get("/all", (req, res) => {
+router.post("/update", (req, res) => {
+    
 
-    User.find((err, found) => {
-        if(err) return console.error(err);
-        res.json(found)
-    })
+    const email = req.body.email;
+
+    User.findOne({email}).then(user => {
+        console.log(user);
+        res.send(res.status);
+        /*if(!user){ // If user doesn't exist, return 400 error and JSON message
+            return res.status(400).json({emailnotfound: "Email not found"});
+        }
+        user.name = "updated";
+        user.save();*/
+})
 });
 
 
