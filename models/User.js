@@ -1,6 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+
+// Child Schema
+const ExerciseSchema = new Schema({
+    name: String,
+    sets: Number,
+    reps: Number,
+});
+
+// Parent Schema
 const UserSchema = new Schema({
     name: { 
         type: String, 
@@ -19,11 +28,18 @@ const UserSchema = new Schema({
         default: Date.now 
     },
     workouts: [{
-        info: { name: String, description: String },
-        exercises: { name: String, sets: Number, reps: Number}
-    }]
+        name: String,
+        description: String,
+        exercises: [{ 
+            name: String, 
+            sets: Number, 
+            reps: Number,
+        }],
+    }],
+    
+    exercises: [ExerciseSchema]
 });
 
-module.exports = User = mongoose.model("users", UserSchema);
 
-// How the export works with mongoose.model: https://mongoosejs.com/docs/api.html#model_Model
+module.exports = User = mongoose.model("users", UserSchema); // compiling schema into a model
+

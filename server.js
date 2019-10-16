@@ -15,8 +15,8 @@ app.use(
 );
 app.use(bodyParser.json());
 
-app.get('*', (req,res) => {
-    res.sendFile('index.html', {root: __dirname});})
+// app.get('*', (req,res) => {
+//     res.sendFile('index.html', {root: __dirname});})
 
 // DB Config
 const db = require("./config/keys").mongoURI;
