@@ -105,21 +105,32 @@ router.get("/all", (req, res) => {
 // @route GET users/specificUser
 // @desc Returns a specific user (passed in email field in request)
 // @access Public
-router.get("/specificUser", (req, res) => {
+router.get("/:email", (req, res) => {
 
     const email = req.body.email
-    User.find({ email }, (err, specificUser) => {
-
+    User.findOne({ email }, (err, specificUser) => {
+        
         res.send(specificUser);
     });
 
 });
 
+// @route GET users/specificUser/exercises
+// @desc Returns a specific users exercises
+// @access Public
+router.get("/:email/exercises", (req, res) => {
+
+    const email = req.body.email;
+    User.findOne({email}, (err, specificUser) => {
+
+        res.send(specificUser.exercises)
+    })
+})
 
 // @route POST users/specificUser/exercises
 // @desc Creates a new exercise for the user (passed in email field in request)
 // @access Public
-router.post("/specificUser/exercises", (req, res) => {
+router.post("/:email/exercises", (req, res) => {
 
     const email = req.body.email;
     const requestObject = {
