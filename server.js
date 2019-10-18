@@ -14,11 +14,15 @@ app.use(
     })
 );
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "localhost:3000"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     next();
-  });
+});
 
 app.use(bodyParser.json());
 
@@ -32,9 +36,9 @@ mongoose
     .connect(
         db,
         { useNewUrlParser: true, useUnifiedTopology: true }
-     )
-     .then (() => console.log("MongoDB successfully connected"))
-     .catch((err) => console.log(err));
+    )
+    .then(() => console.log("MongoDB successfully connected"))
+    .catch((err) => console.log(err));
 
 app.use(passport.initialize());
 require("./config/passport")(passport);
