@@ -102,52 +102,67 @@ router.get("/all", (req, res) => {
     });
 });
 
-// @route GET users/specificUser
-// @desc Returns a specific user (passed in email field in request)
+// @route GET users/:id
+// @desc Returns a user object
 // @access Public
-router.get("/:email", (req, res) => {
-
-    const email = req.body.email
-    User.findOne({ email }, (err, specificUser) => {
-        
+router.get("/:id", (req, res) => {
+    const id = req.params.id
+    User.findById(id, (err, specificUser) => {
         res.send(specificUser);
-    });
-
+    })
 });
 
-// @route GET users/specificUser/exercises
-// @desc Returns a specific users exercises
+// @route GET users/:id/exercises
+// @desc Returns a user exercises object
 // @access Public
-router.get("/:email/exercises", (req, res) => {
-
-    const email = req.body.email;
-    User.findOne({email}, (err, specificUser) => {
-
-        res.send(specificUser.exercises)
+router.get("/:id/exercises", (req, res) => {
+    const id = req.params.id
+    User.findById(id, (err, specificUser) => {
+        res.send(specificUser.exercises);
     })
-})
+});
 
-// @route POST users/specificUser/exercises
-// @desc Creates a new exercise for the user (passed in email field in request)
+// @route POST users/:id/exercises
+// @desc Creates a new exercise object for the user 
 // @access Public
-router.post("/:email/exercises", (req, res) => {
+router.post("/:id/exercises/new", (req, res) => {
 
-    const email = req.body.email;
+    const id = req.params.id
     const requestObject = {
-        name: req.body.name, 
+        name: req.body.exerciseName, 
         sets: req.body.sets, 
         reps: req.body.reps
     };
 
-    User.findOne({ email }, (err, specificUser) => {
-        specificUser.exercises.push(requestObject);
+    if (typeof req.body.name === 'undefined') {
+        res.send('Error! Exercise was not created.')
+    } else if (typeof req.body.name !== 'undefined') {
+        User.findById(id, (err, specificUser) => {
+            specificUser.exercises.push(requestObject);
+            specificUser.save((err) => {
+                if (err) return handleError(err)
+                res.send('Success! Created new exercise in user DB')
+            })
+        })
+    };
+});
+
+// @route POST users/:id/exercises/delete
+// @desc Deletes an exercise object for the user 
+// @access Public
+router.post("/:id/exercises/delete", (req, res) => {
+    const id = req.params.id
+    const exerciseId = req.body.exerciseId
+
+    User.findById(id, (err, specificUser) => {
+        specificUser.exercises.pull(exerciseId);
         specificUser.save((err) => {
             if (err) return handleError(err)
-            console.log('Success!')
-            res.send('Success!')
-        })
+            res.send('Success! Deleted the exercise from user DB')
+        });
     })
-})
+});
+
 
 /************************************************************************************************************************************************************************************/
 
