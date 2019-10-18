@@ -134,9 +134,9 @@ router.post("/:id/exercises/new", (req, res) => {
         reps: req.body.reps
     };
 
-    if (typeof req.body.name === 'undefined') {
+    if (typeof req.body.exerciseName === 'undefined') {
         res.send('Error! Exercise was not created.')
-    } else if (typeof req.body.name !== 'undefined') {
+    } else if (typeof req.body.exerciseName !== 'undefined') {
         User.findById(id, (err, specificUser) => {
             specificUser.exercises.push(requestObject);
             specificUser.save((err) => {
