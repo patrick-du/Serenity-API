@@ -2,20 +2,19 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const keys = require("../../config/keys");
+const keys = require("../config/keys");
 
 // Load input validation
-const validateRegisterInput = require("../../validation/register");
-const validateLoginInput = require("../../validation/login");
+const validateRegisterInput = require("../validation/register");
+const validateLoginInput = require("../validation/login");
 
 // Load models
-const User = require("../../models/User");
+const User = require("../models/User");
 
 /********************************************************************************************************************************************************************************/
 
 // @route POST users/register
 // @desc Register the user
-// @access Public
 router.post("/register", (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body);
 
@@ -48,7 +47,6 @@ router.post("/register", (req, res) => {
 
 // @route POST users/login
 // @desc Login the user and return JWT
-// @access Public
 router.post("/login", (req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);
 
@@ -92,8 +90,7 @@ router.post("/login", (req, res) => {
 
 // @route GET users/all
 // @desc Returns all users
-// @access Public
-router.get("/all", (req, res) => {
+router.get("/users/all", (req, res) => {
 
     User.find((err, users) => {
         if (err) return console.error(err);
@@ -103,8 +100,7 @@ router.get("/all", (req, res) => {
 
 // @route GET users/:id
 // @desc Returns a user object
-// @access Public
-router.get("/:id", (req, res) => {
+router.get("/users/:id", (req, res) => {
     const id = req.params.id
     User.findById(id, (err, specificUser) => {
         res.send(specificUser);
@@ -113,8 +109,7 @@ router.get("/:id", (req, res) => {
 
 // @route GET users/:id/exercises
 // @desc Returns a user exercises object
-// @access Public
-router.get("/:id/exercises", (req, res) => {
+router.get("/users/:id/exercises", (req, res) => {
     const id = req.params.id
     User.findById(id, (err, specificUser) => {
         res.send(specificUser.exercises);
@@ -123,8 +118,7 @@ router.get("/:id/exercises", (req, res) => {
 
 // @route POST users/:id/exercises
 // @desc Creates a new exercise object for the user 
-// @access Public
-router.post("/:id/exercises/new", (req, res) => {
+router.post("/users/:id/exercises/new", (req, res) => {
 
     const id = req.params.id
     const requestObject = {
@@ -148,8 +142,7 @@ router.post("/:id/exercises/new", (req, res) => {
 
 // @route POST users/:id/exercises/delete
 // @desc Deletes an exercise object for the user 
-// @access Public
-router.post("/:id/exercises/delete", (req, res) => {
+router.post("/users/:id/exercises/delete", (req, res) => {
     const id = req.params.id
     const exerciseId = req.body.exerciseId
 

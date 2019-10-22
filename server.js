@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
-const users = require("./routes/api/users");
+const users = require("./api/users");
+const exercises = require("./api/exercises");
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(
     })
 );
 
+// Cors Middleware
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -35,7 +37,9 @@ mongoose
 
 app.use(passport.initialize());
 require("./config/passport")(passport);
-app.use("/users", users);
+
+app.use(users);
+app.use(exercises);
 
 const PORT = process.env.PORT || 3000;
 
