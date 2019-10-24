@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const ExerciseSchema = new Schema({
+const SerenityExerciseSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -11,4 +11,5 @@ const ExerciseSchema = new Schema({
     }],
     equipmentType: String,
 })
-module.exports = ExerciseSchema
+
+module.exports = SerenityExercise = mongoose.model("serenityExercises", SerenityExerciseSchema)

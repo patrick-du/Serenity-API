@@ -1,15 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const ExerciseSchema = require('./Exercise');
 
-// Child Schema
-const ExerciseSchema = new Schema({
-    name: String,
-    sets: Number,
-    reps: Number,
-});
-
-// Parent Schema
 const UserSchema = new Schema({
     name: { 
         type: String, 
@@ -27,16 +20,6 @@ const UserSchema = new Schema({
         type: Date, 
         default: Date.now 
     },
-    workouts: [{
-        name: String,
-        description: String,
-        exercises: [{ 
-            name: String, 
-            sets: Number, 
-            reps: Number,
-        }],
-    }],
-    
     exercises: [ExerciseSchema]
 });
 
