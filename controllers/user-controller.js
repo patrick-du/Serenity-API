@@ -9,6 +9,20 @@ const validateLoginInput = require("../validation/login");
 // User Model
 const User = require("../models/User");
 
+// getToken method
+getToken = (headers) => {
+    if (headers && headers.authorization) {
+        var parted = headers.authorization.split(' ');
+        if (parted.length === 2) {
+            return parted[1];
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+}
+
 // User Methods
 exports.registerUser = (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body);
@@ -19,7 +33,7 @@ exports.registerUser = (req, res) => {
 
     User.findOne({ email: req.body.email }).then(user => {
         if (user) { // If user already exists, return 400 error and JSON message
-            return res.status(400).json({ email: "Email already exists" });
+            return res.json({ success: false, msg: 'Email already exists' });
         } else {
             const newUser = new User({ // Creates new user model instance  
                 name: req.body.name,
@@ -32,7 +46,7 @@ exports.registerUser = (req, res) => {
                     if (err) throw err;
                     newUser.password = hash;
                     newUser.save()
-                        .then(user => res.json(user))
+                        .then(user => res.json({ success: true, msg: `Successfully created new user. ${user}` }))
                         .catch(err => console.log(err));
                 });
             });
@@ -72,23 +86,43 @@ exports.loginUser = (req, res) => {
                         res.json({ success: true, token: `Bearer ${token}` });
                     }
                 );
-            } else { // If no match, return 400 error and JSON message
-                return res.status(400).json({ passwordincorret: "Password incorrect" });
+            } else { // If no match, return 401 error and JSON message
+                return res.status(401).json({ success: false, msg: 'Authentication failed. Wrong password.' });
             }
         });
     });
 }
 
+exports.authCheck = (req, res) => {
+    var token = getToken(req.headers);
+    if (token) {
+        res.send({ success: true, msg: 'Authorized.' });
+    } else {
+        return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+    }
+}
+
 exports.getAllUsers = (req, res) => {
-    User.find((err, users) => {
-        if (err) return console.error(err);
-        res.send(users);
-    });
+    var token = getToken(req.headers);
+    if (token) {
+        User.find((err, users) => {
+            if (err) return console.error(err);
+            res.send(users);
+        });
+    } else {
+        return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+    }
 }
 
 exports.getSpecificUser = (req, res) => {
-    const userId = req.params.userId
-    User.findById(userId, (err, specificUser) => {
-        res.send(specificUser);
-    })
+    var token = getToken(req.headers);
+    if (token) {
+        const userId = req.params.userId
+        User.findById(userId, (err, specificUser) => {
+            res.send(specificUser);
+        })
+    } else {
+        return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+    }
 }
+

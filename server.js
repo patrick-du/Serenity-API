@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const bodyParser = require("body-parser");
 const passport = require("passport");
@@ -17,13 +18,16 @@ app.use(
     })
 );
 
+app.use(cors());
+
+/*
 // Cors Bypass Middleware
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
-
+*/
 // Server Setup
 mongoose
     .connect(
@@ -37,15 +41,6 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 app.use(routes);
-
-app.use((req,res,next) => {
-    if (req.body) log.info(req.body);
-    if (req.params) log.info(req.params);
-    if(req.query) log.info(req.query);
-    log.info(`Received a ${req.method} request from ${req.ip} for                ${req.url}`);
-  next();
-});
-app
 
 const PORT = process.env.PORT || 3000;
 
