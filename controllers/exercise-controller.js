@@ -18,27 +18,26 @@ getToken = (headers) => {
 
 // User Exercise Methods
 exports.getUserExercises = (req, res) => {
-    var token = getToken(req.headers);
-    if (token) {
+    //var token = getToken(req.headers);
+    //if (token) {
         const userId = req.params.userId
         User.findById(userId, (err, specificUser) => {
             res.send(specificUser.exercises);
         })
-    } else {
-        return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-    }
+    //} else {
+    //    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+    //}
+    //}
 }
 
 exports.addUserExercise = (req, res) => {
-    var token = getToken(req.headers);
-    if (token) {
+    //var token = getToken(req.headers);
+    //if (token) {
         if (isEmpty(req.body.name)) {
             res.send({ Success: "False" });
         } else {
-
             const userId = req.params.userId
             const requestObject = {
-                createdBy: req.body.createdBy,
                 name: req.body.name,
                 primaryMuscles: req.body.primaryMuscles,
                 equipmentType: req.body.equipmentType,
@@ -50,16 +49,16 @@ exports.addUserExercise = (req, res) => {
                 res.send({ Success: "True" })
             })
         }
-    } else {
-        return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-    }
+    //} else {
+    //    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+    //}
 }
 
 exports.deleteUserExercise = (req, res) => {
-    var token = getToken(req.headers);
-    if (token) {
+    //var token = getToken(req.headers);
+    //if (token) {
         const userId = req.params.userId
-        const exerciseId = req.params.exerciseId
+        const exerciseId = req.body.exerciseId
         User.findById(userId, (err, specificUser) => {
             let doc = specificUser.exercises.id(exerciseId);
             if (isEmpty(doc)) {
@@ -70,9 +69,31 @@ exports.deleteUserExercise = (req, res) => {
                 res.send({ Success: 'True' })
             }
         })
-    } else {
-        return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-    }
+    //} else {
+    //    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+    //}
+}
+
+exports.updateUserExercise = (req, res) => {
+    //var token = getToken(req.headers);
+    //if (token) {
+        const userId = req.params.userId
+        const exerciseId = req.body.exerciseId
+        User.findById(userId, (err, specificUser) => {
+            let doc = specificUser.exercises.id(exerciseId);
+            if (isEmpty(doc)) {
+                res.send({ Success: "False" })
+            } else {
+                doc.name = req.body.name ? req.body.name : doc.name
+                doc.primaryMuscles = req.body.primaryMuscles ? req.body.primaryMuscles : doc.primaryMuscles
+                doc.equipmentType = req.body.equipmentType ? req.body.equipmentType : doc.equipmentType
+                specificUser.save()
+                res.send({ Success: 'True' })
+            }
+        })
+    //} else {
+    //    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+    //}
 }
 
 // Serenity Exercise Methods

@@ -4,7 +4,7 @@ const isEmpty = require("is-empty");
 const passport = require('passport')
 
 const { registerUser, loginUser, authCheck, getAllUsers, getSpecificUser } = require('./controllers/user-controller');
-const { getUserExercises, addUserExercise, deleteUserExercise, getSerenityExercises} = require('./controllers/exercise-controller');
+const { getUserExercises, addUserExercise, deleteUserExercise, updateUserExercise, getSerenityExercises} = require('./controllers/exercise-controller');
 
 /*Authentication [Access: Public]************************************************************************************************************************************************/
 
@@ -27,7 +27,7 @@ router.get("/authCheck", passport.authenticate('jwt', {session: false}), (req, r
 // @route [GET] users/all 
 // @desc Returns all users
 // @access PROTECTED
-router.get("/users", passport.authenticate('jwt', {session: false}), (req, res) => getAllUsers(req,res));
+router.get("/users", /*passport.authenticate('jwt', {session: false}),*/ (req, res) => getAllUsers(req,res));
   
 // @route [GET] users/:id
 // @desc Returns user
@@ -40,16 +40,20 @@ router.get("/users/:userId", passport.authenticate('jwt', {session: false}), (re
 
 // @route [GET] users/:id/exercises
 // @desc Returns user exercises
-router.get("/users/:userId/exercises", passport.authenticate('jwt', {session: false}), (req, res) => getUserExercises(req, res));
+router.get("/users/:userId/exercises", /*passport.authenticate('jwt', {session: false}),*/ (req, res) => getUserExercises(req, res));
 
 
 // @route POST exercise
-// @desc Post exercise to user exercises
-router.post("/users/:userId/exercises", passport.authenticate('jwt', {session: false}), (req, res) => addUserExercise(req,res));
+// @desc Post exercise to DB
+router.post("/users/:userId/exercises", /*passport.authenticate('jwt', {session: false}),*/ (req, res) => addUserExercise(req,res));
 
-// @route POST exercise
-// @desc Post a single exercise to DB
-router.delete("/users/:userId/exercises/:exerciseId", passport.authenticate('jwt', {session: false}), (req, res) => deleteUserExercise(req,res));
+// @route DELETE exercise
+// @desc Deletes exercise from DB
+router.delete("/users/:userId/exercises", /*passport.authenticate('jwt', {session: false}),*/ (req, res) => deleteUserExercise(req,res));
+
+// @route UPDATE exercise
+// @desc Updates exercise from DB
+router.patch("/users/:userId/exercises", /*passport.authenticate('jwt', {session: false}),*/ (req, res) => updateUserExercise(req,res));
 
 /*
 // @route POST users/:id/exercises/delete
