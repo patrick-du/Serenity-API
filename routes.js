@@ -4,6 +4,7 @@ const isEmpty = require("is-empty");
 const passport = require('passport')
 
 const { registerUser, loginUser, authCheck, getAllUsers, getSpecificUser } = require('./controllers/user-controller');
+const { getJournalEntry, addJournalEntry, deleteJournalEntry, editJournalEntry } = require('./controllers/journal-controller');
 const { getUserExercises, addUserExercise, deleteUserExercise, updateUserExercise, getSerenityExercises} = require('./controllers/exercise-controller');
 
 /*Authentication [Access: Public]************************************************************************************************************************************************/
@@ -35,7 +36,26 @@ router.get("/users", /*passport.authenticate('jwt', {session: false}),*/ (req, r
 router.get("/users/:userId", passport.authenticate('jwt', {session: false}), (req, res) => getSpecificUser(req,res));
 
 
-/*User Exercise Routes [Access: Protected]********************************************************************************************************************************************/
+/*Journal Routes [Access: Protected]********************************************************************************************************************************************/
+
+
+// @route [GET] users/:id/journal - gets journal entries
+router.get("/users/:userId/journals", /*passport.authenticate('jwt', {session: false}),*/ (req, res) => getJournalEntry(req, res));
+
+
+// @route [POST] users/:id/journal - adds journal entry
+router.post("/users/:userId/journals", /*passport.authenticate('jwt', {session: false}),*/ (req, res) => addJournalEntry(req, res));
+
+
+// @route [DELETE] users/:id/journal - deletes journal entry
+router.delete("/users/:userId/journals", /*passport.authenticate('jwt', {session: false}),*/ (req, res) => deleteJournalEntry(req, res));
+
+
+// @route [PATCH] users/:id/journal - edit journal entry
+router.patch("/users/:userId/journals", /*passport.authenticate('jwt', {session: false}),*/ (req, res) => editJournalEntry(req, res));
+
+
+/*Exercise Routes [Access: Protected]********************************************************************************************************************************************/
 
 
 // @route [GET] users/:id/exercises

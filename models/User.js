@@ -20,6 +20,14 @@ const UserSchema = new Schema({
         type: Date, 
         default: Date.now 
     },
+    journals: [{
+        date: {
+            type: Date,
+            default: Date.now
+        },
+        body: String,
+        rating: Number, 
+    }],
     exercises: [ExerciseSchema]
 });
 
