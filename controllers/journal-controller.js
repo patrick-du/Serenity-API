@@ -10,21 +10,24 @@ exports.getJournalEntry = (req, res) => {
 }
 
 exports.addJournalEntry = (req, res) => {
-    if (isEmpty(req.body.body)) {
-        res.send({ Success: "False" });
-    } else {
-        const userId = req.params.userId;
-        const requestObject = {
-            body: req.body.body,
-            rating: req.body.rating
-        };
-
-        User.findById(userId, (err, specificUser) => {
-            specificUser.journals.push(requestObject)
-            specificUser.save()
-            res.send({ Success: "True" })
-        })
+    if (isEmpty(req.body.entry)) {
+        return res.status(400).json({ entryBody: "Empty" });
     }
+
+    const userId = req.params.userId;
+    const requestObject = {
+        entry: req.body.entry,
+        stressRating: req.body.stressRating,
+        depressionRating: req.body.depressionRating,
+        anxietyRating: req.body.anxietyRating
+    };
+
+    User.findById(userId, (err, specificUser) => {
+        specificUser.journals.push(requestObject)
+        specificUser.save()
+            .then(res.status(200).json({ Success: "True" }))
+            .catch(err => console.log(err));
+    })
 }
 
 exports.deleteJournalEntry = (req, res) => {

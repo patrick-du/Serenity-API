@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const JournalSchema = require('./Journal');
 const ExerciseSchema = require('./Exercise');
 
 const UserSchema = new Schema({
@@ -18,16 +19,9 @@ const UserSchema = new Schema({
     },
     createdOn: { 
         type: Date, 
-        default: Date.now 
+        default: Date.now
     },
-    journals: [{
-        date: {
-            type: Date,
-            default: Date.now
-        },
-        body: String,
-        rating: Number, 
-    }],
+    journals: [JournalSchema],
     exercises: [ExerciseSchema]
 });
 
