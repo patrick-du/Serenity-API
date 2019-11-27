@@ -9,6 +9,7 @@ const passport = require("passport");
 const db = require("./config/keys").mongoURI;
 const routes = require("./routes");
 
+const auth = require("./config/passport")
 
 // BodyParser MiddleWare
 app.use(bodyParser.json());
@@ -20,14 +21,6 @@ app.use(
 
 app.use(cors());
 
-/*
-// Cors Bypass Middleware
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
-*/
 // Server Setup
 mongoose
     .connect(

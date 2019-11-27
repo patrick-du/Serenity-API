@@ -9,20 +9,6 @@ const validateLoginInput = require("../validation/login");
 // User Model
 const User = require("../models/User");
 
-// getToken method
-getToken = (headers) => {
-    if (headers && headers.authorization) {
-        var parted = headers.authorization.split(' ');
-        if (parted.length === 2) {
-            return parted[1];
-        } else {
-            return null;
-        }
-    } else {
-        return null;
-    }
-}
-
 // User Methods
 exports.registerUser = (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body);
@@ -93,36 +79,17 @@ exports.loginUser = (req, res) => {
     });
 }
 
-exports.authCheck = (req, res) => {
-    var token = getToken(req.headers);
-    if (token) {
-        res.send({ success: true, msg: 'Authorized.' });
-    } else {
-        return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-    }
-}
-
 exports.getAllUsers = (req, res) => {
-    var token = getToken(req.headers);
-    if (token) {
-        User.find((err, users) => {
-            if (err) return console.error(err);
-            res.send(users);
-        });
-    } else {
-        return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-    }
+    User.find((err, users) => {
+        if (err) return console.error(err);
+        res.send(users);
+    });
 }
 
 exports.getSpecificUser = (req, res) => {
-    var token = getToken(req.headers);
-    if (token) {
-        const userId = req.params.userId
-        User.findById(userId, (err, specificUser) => {
-            res.send(specificUser);
-        })
-    } else {
-        return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-    }
+    const userId = req.params.userId
+    User.findById(userId, (err, specificUser) => {
+        res.send(specificUser);
+    })
 }
 
