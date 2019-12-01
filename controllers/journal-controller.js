@@ -1,12 +1,14 @@
 const User = require("../models/User");
 const isEmpty = require('is-empty');
+const moment = require('moment');
+
 
 // Journal Methods
 exports.getJournalEntry = (req, res) => {
-        const userId = req.params.userId;
-        User.findById(userId, (err, specificUser) => {
-            res.send(specificUser.journals)
-        })
+    const userId = req.params.userId;
+    User.findById(userId, (err, specificUser) => {
+        res.send(specificUser.journals);
+    })
 }
 
 exports.addJournalEntry = (req, res) => {
@@ -18,7 +20,8 @@ exports.addJournalEntry = (req, res) => {
         entry: req.body.entry,
         stressRating: req.body.stressRating,
         depressionRating: req.body.depressionRating,
-        anxietyRating: req.body.anxietyRating
+        anxietyRating: req.body.anxietyRating,
+        physicalActivityLevel: req.body.physicalActivityLevel
     };
     User.findById(userId, (err, specificUser) => {
         specificUser.journals.push(requestObject)

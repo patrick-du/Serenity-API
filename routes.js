@@ -41,7 +41,7 @@ router.get("/users/:userId", passport.authenticate('jwt', {session: false}), (re
 
 
 // @route [GET] users/:id/journal - gets journal entries
-router.get("/users/:userId/journals", passport.authenticate('jwt', {session: false}), (req, res) => getJournalEntry(req, res));
+router.get("/users/:userId/journals", /*passport.authenticate('jwt', {session: false}),*/ (req, res) => getJournalEntry(req, res));
 
 
 // @route [POST] users/:id/journal - adds journal entry
