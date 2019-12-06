@@ -7,16 +7,15 @@ const moment = require('moment');
 exports.getJournalEntry = (req, res) => {
     const userId = req.params.userId;
     User.findById(userId, (err, specificUser) => {
+        let sortedJournals = specificUser.journals
         res.send(specificUser.journals);
     })
 }
 
 exports.addJournalEntry = (req, res) => {
-    if (isEmpty(req.body.entry)) {
-        return res.status(400).json({ entryBody: "Empty" });
-    }
     const userId = req.params.userId;
     const requestObject = {
+        date: convertDateToMomentFormat(req.body.date),
         entry: req.body.entry,
         stressRating: req.body.stressRating,
         depressionRating: req.body.depressionRating,
@@ -29,6 +28,11 @@ exports.addJournalEntry = (req, res) => {
             .then(res.status(200).json({ Success: "True" }))
             .catch(err => console.log(err));
     })
+}
+
+const convertDateToMomentFormat = (date) => {
+    let momentDate =  moment(date,"YYYY-MM-DD").format("dddd, MMMM Do YYYY");
+    return momentDate
 }
 
 exports.deleteJournalEntry = (req, res) => {

@@ -5,7 +5,6 @@ const moment = require('moment');
 const JournalSchema = new Schema({
     date: {
         type: String,
-        default: moment().format("dddd, MMMM Do YYYY")
     },
     entry: String,
     stressRating: Number, 
