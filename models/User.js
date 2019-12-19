@@ -22,7 +22,24 @@ const UserSchema = new Schema({
         default: Date.now
     },
     journals: [JournalSchema],
-    exercises: [ExerciseSchema]
+    exercises: [ExerciseSchema],
+    assessments: {
+        PHQ9: [{
+            date: {
+                type: String
+            },
+            score: Number,
+            level: String
+        }],
+        GAD7: [{
+            date: {
+                type: String
+            },
+            score: Number,
+            level: String
+        }]
+    }
+    
 });
 
 
