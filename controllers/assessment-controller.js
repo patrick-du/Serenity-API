@@ -73,6 +73,21 @@ exports.addGAD7Entry = (req, res) => {
     })
 }
 
+exports.deleteGAD7Entry = (req, res) => {
+    const userId = req.params.userId
+    const entryId = req.body.entryId
+    User.findById(userId, (err, specificUser) => {
+        let doc = specificUser.assessments.GAD7.id(entryId);
+        if (isEmpty(doc)) {
+            return res.status(400).json({ entryNotFound: "Entry was not found" })
+        } else {
+            doc.remove()
+            specificUser.save()
+            return res.status(200).json({ Success: "True" })
+        }
+    })
+}
+
 const sumScoreFromArr = (submissionArr) => {
     var sum = 0;
     submissionArr.forEach((el) => {

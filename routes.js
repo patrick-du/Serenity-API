@@ -7,7 +7,7 @@ require('./config/passport')(passport);
 const { registerUser, loginUser, authCheck, getAllUsers, getSpecificUser } = require('./controllers/user-controller');
 const { getJournalEntry, addJournalEntry, deleteJournalEntry, editJournalEntry } = require('./controllers/journal-controller');
 const { getUserExercises, addUserExercise, deleteUserExercise, updateUserExercise, getSerenityExercises} = require('./controllers/exercise-controller');
-const { getPHQ9Entry, addPHQ9Entry, deletePHQ9Entry, getGAD7Entry, addGAD7Entry } = require('./controllers/assessment-controller');
+const { getPHQ9Entry, addPHQ9Entry, deletePHQ9Entry, getGAD7Entry, addGAD7Entry, deleteGAD7Entry } = require('./controllers/assessment-controller');
 
 
 /************************************************************************************************************************************************************************************/
@@ -97,4 +97,7 @@ router.get("/users/:userId/assessments/GAD7", /*passport.authenticate('jwt', {se
 router.post("/users/:userId/assessments/GAD7", /*passport.authenticate('jwt', {session: false}),*/ (req, res) => addGAD7Entry(req, res));
 
 
+// @route [DELETE] users/:id/assessments/GAD7
+// @desc Deletes GAD7 Entry
+router.delete("/users/:userId/assessments/GAD7", /*passport.authenticate('jwt', {session: false}),*/ (req, res) => deleteGAD7Entry(req, res));
 module.exports = router;

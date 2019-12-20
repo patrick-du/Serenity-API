@@ -49,7 +49,7 @@ exports.loginUser = (req, res) => {
 
     const email = req.body.email;
     const password = req.body.password;
-
+    
     User.findOne({ email }).then(user => {
         if (!user) { // If user doesn't exist, return 400 error and JSON message
             return res.status(400).json({ emailnotfound: "Email not found" });
