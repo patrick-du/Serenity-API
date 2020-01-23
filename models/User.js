@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const JournalSchema = require('./Journal');
-const ExerciseSchema = require('./Exercise');
 
 const UserSchema = new Schema({
     name: { 
@@ -22,7 +21,6 @@ const UserSchema = new Schema({
         default: Date.now
     },
     journals: [JournalSchema],
-    exercises: [ExerciseSchema],
     assessments: {
         PHQ9: [{
             date: {
@@ -39,7 +37,6 @@ const UserSchema = new Schema({
             level: String
         }]
     }
-    
 });
 
 

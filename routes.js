@@ -8,6 +8,7 @@ const { registerUser, loginUser, authCheck, getAllUsers, getSpecificUser } = req
 const { getJournalEntry, addJournalEntry, deleteJournalEntry, editJournalEntry } = require('./controllers/journal-controller');
 const { getUserExercises, addUserExercise, deleteUserExercise, updateUserExercise, getSerenityExercises} = require('./controllers/exercise-controller');
 const { getPHQ9Entry, addPHQ9Entry, deletePHQ9Entry, getGAD7Entry, addGAD7Entry, deleteGAD7Entry } = require('./controllers/assessment-controller');
+const { getJournalTrend } = require('./controllers/statistics-controller');
 
 
 /************************************************************************************************************************************************************************************/
@@ -48,7 +49,7 @@ router.get("/users", passport.authenticate('jwt', {session: false}), (req, res) 
 
 // @route [GET] users/:id
 // @desc Returns user
-router.get("/users/:userId", passport.authenticate('jwt', {session: false}), (req, res) => getSpecificUser(req,res));
+router.get("/users/:userId", /*passport.authenticate('jwt', {session: false}),*/ (req, res) => getSpecificUser(req,res));
 
 
 /*Journal Routes*********************************************************************************************************************************************************************/
@@ -101,3 +102,11 @@ router.post("/users/:userId/assessments/GAD7", /*passport.authenticate('jwt', {s
 // @desc Deletes GAD7 Entry
 router.delete("/users/:userId/assessments/GAD7", /*passport.authenticate('jwt', {session: false}),*/ (req, res) => deleteGAD7Entry(req, res));
 module.exports = router;
+
+
+/*Statistics Routes *****************************************************************************************************************************************************************/
+
+
+// @route [GET] users/:id/statistics/trends
+// @desc Returns all journal trends
+router.get("/users/:userId/statistics/trends", /*passport.authenticate('jwt', {session: false}), */ (req, res) => getJournalTrend(req, res));

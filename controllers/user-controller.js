@@ -77,7 +77,7 @@ exports.loginUser = (req, res) => {
             }
         });
     });
-}
+} 
 
 exports.getAllUsers = (req, res) => {
     User.find((err, users) => {
