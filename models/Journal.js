@@ -1,16 +1,16 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const moment = require('moment');
+const moment = require("moment");
 
 const JournalSchema = new Schema({
-    date: {
-        type: String,
-    },
-    entry: String,
-    stressRating: Number, 
-    depressionRating: Number, 
-    anxietyRating: Number, 
-    physicalActivityLevel: String, 
-})
+  date: {
+    type: String,
+  },
+  entry: String,
+  stressRating: Number,
+  depressionRating: Number,
+  anxietyRating: Number,
+  physicalActivityLevel: String,
+});
 
-module.exports = JournalSchema
+module.exports = JournalSchema;

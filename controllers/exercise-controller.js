@@ -2,11 +2,11 @@ const User = require("../models/User");
 
 // User Exercise Methods
 exports.getUserExercises = (req, res) => {
-        const userId = req.params.userId
-        User.findById(userId, (err, specificUser) => {
-            res.send(specificUser.exercises);
-        })
-}
+  const userId = req.params.userId;
+  User.findById(userId, (err, specificUser) => {
+    res.send(specificUser.exercises);
+  });
+};
 /* 
 exports.addUserExercise = (req, res) => {
    
