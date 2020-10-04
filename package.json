@@ -1,7 +1,7 @@
 {
-  "name": "Serenity",
+  "name": "Serenity-API",
   "version": "1.0.0",
-  "description": "",
+  "description": "Serenity REST API with Node (Express) and MongoDB",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -9,15 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/patrick-du/Serenity.git"
+    "url": "git+https://github.com/patrick-du/Serenity-API.git"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/patrick-du/Serenity/issues"
+    "url": "https://github.com/patrick-du/Serenity-API/issues"
   },
-  "homepage": "https://github.com/patrick-du/Serenity#readme",
+  "homepage": "https://github.com/patrick-du/Serenity-API#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",

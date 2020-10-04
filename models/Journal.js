@@ -12,4 +12,6 @@ const JournalSchema = new Schema({
   physicalActivityLevel: String,
 });
 
-module.exports = JournalSchema;
+const Journal = mongoose.model("Journal", JournalSchema);
+
+module.exports = { JournalSchema, Journal };

@@ -9,4 +9,6 @@ const AssessmentSchema = new Schema({
   level: String,
 });
 
-module.exports = AssessmentSchema;
+const Assessment = mongoose.model("Assessment", AssessmentSchema);
+
+module.exports = { AssessmentSchema, Assessment };
