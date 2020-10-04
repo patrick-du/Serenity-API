@@ -5,7 +5,8 @@ const morgan = require("morgan");
 const passport = require("passport");
 const connectDB = require("./config/db");
 const bodyParser = require("body-parser");
-const routes = require("./routes");
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
 
 // Config
 require("dotenv").config();
@@ -38,8 +39,8 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 // Routes
-app.use("/auth", require("./routes/auth"));
-app.use("/users", require("./routes/user"));
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
 
 // Server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

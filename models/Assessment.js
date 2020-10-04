@@ -2,9 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const AssessmentSchema = new Schema({
-  date: {
-    type: String,
-  },
+  date: String,
   score: Number,
   level: String,
 });
