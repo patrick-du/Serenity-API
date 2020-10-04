@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
 const JournalSchema = require("./Journal");
+const AssessmentSchema = require("./Assessment");
 
 const UserSchema = new Schema({
   name: {
@@ -22,25 +22,9 @@ const UserSchema = new Schema({
   },
   journals: [JournalSchema],
   assessments: {
-    PHQ9: [
-      {
-        date: {
-          type: String,
-        },
-        score: Number,
-        level: String,
-      },
-    ],
-    GAD7: [
-      {
-        date: {
-          type: String,
-        },
-        score: Number,
-        level: String,
-      },
-    ],
+    PHQ9: [AssessmentSchema],
+    GAD7: [AssessmentSchema],
   },
 });
 
-module.exports = User = mongoose.model("users", UserSchema); // compiling schema into a model
+module.exports = User = mongoose.model("users", UserSchema);
