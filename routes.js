@@ -4,7 +4,7 @@ const isEmpty = require("is-empty");
 const passport = require('passport');
 require('./config/passport')(passport);
 
-const { registerUser, loginUser, authCheck, getAllUsers, getSpecificUser } = require('./controllers/user-controller');
+const { registerUser, loginUser, getAllUsers, getSpecificUser } = require('./controllers/user-controller');
 const { getJournalEntry, addJournalEntry, deleteJournalEntry, editJournalEntry } = require('./controllers/journal-controller');
 const { getUserExercises, addUserExercise, deleteUserExercise, updateUserExercise, getSerenityExercises} = require('./controllers/exercise-controller');
 const { getPHQ9Entry, addPHQ9Entry, deletePHQ9Entry, getGAD7Entry, addGAD7Entry, deleteGAD7Entry } = require('./controllers/assessment-controller');
@@ -27,12 +27,6 @@ router.post("/register", (req, res) => registerUser(req, res));
 // @route POST login
 // @desc Login the user and return JWT
 router.post("/login", (req, res) => loginUser(req, res));
-
-
-// @route POST authCheck
-// @desc Authentication checker 
-router.get("/authCheck", passport.authenticate('jwt', {session: false}), (req, res) => authCheck(req, res));
- 
 
 /************************************************************************************************************************************************************************************/
 /*[PROTECTED]************************************************************************************************************************************************************************/
