@@ -22,6 +22,6 @@ exports.validateLoginInput = ({ email, password }) => {
 
   return {
     errors,
-    isValid: isEmpty(errors),
+    isValid: isEmpty(errors.msg),
   };
 };

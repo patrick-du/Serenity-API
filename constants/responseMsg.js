@@ -37,12 +37,12 @@ const JOURNAL_NOT_FOUND = {
 
 const CREATED_JOURNAL = {
   ...TRUE,
-  msg: `Successfuly created journal entry.`,
+  msg: `Successfully created journal entry.`,
 };
 
 const DELETED_JOURNAL = {
   ...TRUE,
-  msg: `Successfuly deleted journal entry.`,
+  msg: `Successfully deleted journal entry.`,
 };
 
 // Assessment Messages
@@ -53,12 +53,12 @@ const ASSESSMENT_NOT_FOUND = {
 
 const CREATED_ASSESSMENT = {
   ...TRUE,
-  msg: `Successfuly created assessment entry.`,
+  msg: `Successfully created assessment entry.`,
 };
 
 const DELETED_ASSESSMENT = {
   ...TRUE,
-  msg: `Successfuly deleted assessment entry.`,
+  msg: `Successfully deleted assessment entry.`,
 };
 
 // Error Objects

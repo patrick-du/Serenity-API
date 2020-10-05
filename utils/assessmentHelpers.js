@@ -7,7 +7,7 @@ exports.phqLevel = (score) => {
     return "None/Minimal";
   } else if (score >= 5 && score <= 9) {
     return "Mild";
-  } else if (score >= 10 && scores <= 14) {
+  } else if (score >= 10 && score <= 14) {
     return "Moderate";
   } else if (score >= 15 && score <= 19) {
     return "Moderately Severe";

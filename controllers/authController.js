@@ -69,7 +69,7 @@ exports.login = (req, res) => {
             expiresIn: 31556926, // 1 year in seconds
           },
           (err, token) => {
-            res.json({ ...authMsg.LOGIN_SUCCESS, token });
+            res.json({ ...authMsg.LOGIN_SUCCESS, token, user_id: user.id });
           }
         );
       } else {
